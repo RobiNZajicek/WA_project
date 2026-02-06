@@ -1,52 +1,33 @@
-import clsx from "clsx";
 import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { useApp } from "../context/AppContext";
 
 import Button from "./Button";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
-
 const NavBar = () => {
-  // State for toggling audio and visual indicator
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-
-  // Refs for audio and navigation container
-  const audioElementRef = useRef(null);
   const navContainerRef = useRef(null);
+  const { language, toggleLanguage, isDark, toggleTheme, t } = useApp();
 
   const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Toggle audio and visual indicator
-  const toggleAudioIndicator = () => {
-    setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
-  };
-
-  // Manage audio playback
-  useEffect(() => {
-    if (isAudioPlaying) {
-      audioElementRef.current.play();
-    } else {
-      audioElementRef.current.pause();
-    }
-  }, [isAudioPlaying]);
+  const navItems = [
+    { label: t("games"), href: "#games" },
+    { label: t("about"), href: "#about" },
+    { label: t("howItWorks"), href: "#how-it-works" },
+  ];
 
   useEffect(() => {
     if (currentScrollY === 0) {
-      // Topmost position: show navbar without floating-nav
       setIsNavVisible(true);
       navContainerRef.current.classList.remove("floating-nav");
     } else if (currentScrollY > lastScrollY) {
-      // Scrolling down: hide navbar and apply floating-nav
       setIsNavVisible(false);
       navContainerRef.current.classList.add("floating-nav");
     } else if (currentScrollY < lastScrollY) {
-      // Scrolling up: show navbar with floating-nav
       setIsNavVisible(true);
       navContainerRef.current.classList.add("floating-nav");
     }
@@ -69,54 +50,62 @@ const NavBar = () => {
     >
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
-          {/* Logo and Product button */}
-          <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
-
-            <Button
-              id="product-button"
-              title="Products"
-              rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
-            />
+          {/* Logo */}
+          <div className="flex items-center gap-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-blue/20 border border-accent-blue/30">
+              <span className="font-mono text-accent-blue text-lg font-bold">J</span>
+            </div>
+            <span className="hidden sm:block font-poppins text-xl font-bold text-white">
+              Jecna<span className="text-accent-blue">Games</span>
+            </span>
           </div>
 
-          {/* Navigation Links and Audio Button */}
-          <div className="flex h-full items-center">
-            <div className="hidden md:block">
+          {/* Navigation Links */}
+          <div className="flex h-full items-center gap-2">
+            <div className="hidden md:flex items-center">
               {navItems.map((item, index) => (
                 <a
                   key={index}
-                  href={`#${item.toLowerCase()}`}
+                  href={item.href}
                   className="nav-hover-btn"
                 >
-                  {item}
+                  {item.label}
                 </a>
               ))}
             </div>
 
+            {/* Theme Toggle */}
             <button
-              onClick={toggleAudioIndicator}
-              className="ml-10 flex items-center space-x-0.5"
+              onClick={toggleTheme}
+              className="ml-4 p-2 rounded-lg bg-jecna-card/50 border border-jecna-border hover:border-accent-blue/50 transition-all"
+              title={isDark ? "Light mode" : "Dark mode"}
             >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/loop.mp3"
-                loop
-              />
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={clsx("indicator-line", {
-                    active: isIndicatorActive,
-                  })}
-                  style={{
-                    animationDelay: `${bar * 0.1}s`,
-                  }}
-                />
-              ))}
+              {isDark ? (
+                <svg className="w-5 h-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
             </button>
+
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-lg bg-jecna-card/50 border border-jecna-border hover:border-accent-blue/50 transition-all font-mono text-sm text-text-secondary font-medium"
+              title="Switch language"
+            >
+              {language.toUpperCase()}
+            </button>
+
+            <Button
+              id="play-now"
+              title={t("playNow")}
+              rightIcon={<TiLocationArrow />}
+              containerClass="ml-4 !bg-accent-blue !text-white flex items-center justify-center gap-1"
+            />
           </div>
         </nav>
       </header>

@@ -6,24 +6,46 @@ export default {
       fontFamily: {
         zentry: ["zentry", "sans-serif"],
         general: ["general", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
         "circular-web": ["circular-web", "sans-serif"],
         "robert-medium": ["robert-medium", "sans-serif"],
         "robert-regular": ["robert-regular", "sans-serif"],
       },
       colors: {
+        // JecnaGames color palette - dark tech theme
+        jecna: {
+          dark: "#0a0a0f",
+          darker: "#050508",
+          card: "#12121a",
+          border: "#1e1e2e",
+        },
+        accent: {
+          green: "#4ade80",
+          blue: "#60a5fa",
+          purple: "#a78bfa",
+          yellow: "#facc15",
+          red: "#f87171",
+        },
+        text: {
+          primary: "#ffffff",
+          secondary: "#a1a1aa",
+          muted: "#52525b",
+        },
+        // Keep some legacy colors for compatibility
         blue: {
-          50: "#DFDFF0",
-          75: "#dfdff2",
-          100: "#F0F2FA",
+          50: "#e0f2fe",
+          75: "#0a0a0f",
+          100: "#ffffff",
           200: "#010101",
-          300: "#4FB7DD",
+          300: "#00d4ff",
         },
         violet: {
-          300: "#5724ff",
+          50: "#a1a1aa",
+          300: "#a855f7",
         },
         yellow: {
-          100: "#8e983f",
-          300: "#edff66",
+          100: "#fbbf24",
+          300: "#fbbf24",
         },
       },
     },

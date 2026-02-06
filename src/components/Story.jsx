@@ -1,121 +1,100 @@
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-
-import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
+import { useApp } from "../context/AppContext";
 
-const FloatingImage = () => {
-  const frameRef = useRef(null);
+gsap.registerPlugin();
 
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const element = frameRef.current;
+const HowItWorks = () => {
+  const containerRef = useRef(null);
+  const { t } = useApp();
 
-    if (!element) return;
-
-    const rect = element.getBoundingClientRect();
-    const xPos = clientX - rect.left;
-    const yPos = clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((yPos - centerY) / centerY) * -10;
-    const rotateY = ((xPos - centerX) / centerX) * 10;
-
-    gsap.to(element, {
-      duration: 0.3,
-      rotateX,
-      rotateY,
-      transformPerspective: 500,
-      ease: "power1.inOut",
+  useGSAP(() => {
+    gsap.from(".step-card", {
+      y: 60,
+      opacity: 0,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      },
     });
-  };
+  });
 
-  const handleMouseLeave = () => {
-    const element = frameRef.current;
-
-    if (element) {
-      gsap.to(element, {
-        duration: 0.3,
-        rotateX: 0,
-        rotateY: 0,
-        ease: "power1.inOut",
-      });
-    }
-  };
+  const steps = [
+    { number: "01", title: t("step1Title"), description: t("step1Desc"), icon: "👤" },
+    { number: "02", title: t("step2Title"), description: t("step2Desc"), icon: "🎮" },
+    { number: "03", title: t("step3Title"), description: t("step3Desc"), icon: "🧩" },
+    { number: "04", title: t("step4Title"), description: t("step4Desc"), icon: "🏆" },
+  ];
 
   return (
-    <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
-      <div className="flex size-full flex-col items-center py-10 pb-24">
-        <p className="font-general text-sm uppercase md:text-[10px]">
-          the multiversal ip world
-        </p>
-
-        <div className="relative size-full">
+    <div
+      id="how-it-works"
+      ref={containerRef}
+      className="min-h-dvh w-screen bg-jecna-darker py-24"
+    >
+      <div className="container mx-auto px-5 md:px-10">
+        <div className="text-center mb-16">
+          <p className="font-poppins text-sm uppercase text-accent-blue tracking-wider">
+            {t("howItWorksLabel")}
+          </p>
           <AnimatedTitle
-            title="the st<b>o</b>ry of <br /> a hidden real<b>m</b>"
-            containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
+            title={`${t("howItWorksTitle1")} <br /> ${t("howItWorksTitle2")}`}
+            containerClass="mt-5 !text-white uppercase"
           />
-
-          <div className="story-img-container">
-            <div className="story-img-mask">
-              <div className="story-img-content">
-                <img
-                  ref={frameRef}
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
-                  onMouseUp={handleMouseLeave}
-                  onMouseEnter={handleMouseLeave}
-                  src="/img/entrance.webp"
-                  alt="entrance.webp"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-            {/* for the rounded corner */}
-            <svg
-              className="invisible absolute size-0"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <filter id="flt_tag">
-                  <feGaussianBlur
-                    in="SourceGraphic"
-                    stdDeviation="8"
-                    result="blur"
-                  />
-                  <feColorMatrix
-                    in="blur"
-                    mode="matrix"
-                    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                    result="flt_tag"
-                  />
-                  <feComposite
-                    in="SourceGraphic"
-                    in2="flt_tag"
-                    operator="atop"
-                  />
-                </filter>
-              </defs>
-            </svg>
-          </div>
         </div>
 
-        <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
-          <div className="flex h-full w-fit flex-col items-center md:items-start">
-            <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
-              Where realms converge, lies Zentry and the boundless pillar.
-              Discover its secrets and shape your fate amidst infinite
-              opportunities.
-            </p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, i) => (
+            <div
+              key={i}
+              className="step-card group relative rounded-2xl bg-jecna-card border border-jecna-border p-8 hover:border-accent-blue/50 transition-all duration-300"
+            >
+              {/* Step number */}
+              <div className="absolute -top-4 -left-2 font-poppins text-7xl font-extrabold text-accent-blue/10 group-hover:text-accent-blue/20 transition-colors">
+                {step.number}
+              </div>
 
-            <Button
-              id="realm-btn"
-              title="discover prologue"
-              containerClass="mt-5"
-            />
+              {/* Icon */}
+              <div className="relative text-4xl mb-6">{step.icon}</div>
+
+              {/* Content */}
+              <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+              <p className="text-text-secondary text-sm leading-relaxed">
+                {step.description}
+              </p>
+
+              {/* Connector line (not on last item) */}
+              {i < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-jecna-border to-transparent" />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Daily challenge callout */}
+        <div className="mt-20 relative rounded-3xl bg-gradient-to-r from-accent-blue/10 via-jecna-card to-accent-blue/10 border border-jecna-border p-10 md:p-16 text-center overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute top-0 left-0 w-32 h-32 bg-accent-blue/20 rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent-blue/20 rounded-full blur-[80px]" />
+
+          <div className="relative z-10">
+            <p className="text-accent-blue font-mono text-sm mb-4">
+              {t("ctaComment")}
+            </p>
+            <h2 className="font-poppins text-3xl md:text-5xl font-extrabold text-white mb-4">
+              {t("ctaTitle")}
+            </h2>
+            <p className="text-text-secondary max-w-lg mx-auto mb-8">
+              {t("ctaDesc")}
+            </p>
+            <button className="px-8 py-4 bg-accent-blue text-white font-bold rounded-full hover:scale-105 transition-transform">
+              {t("startPlaying")}
+            </button>
           </div>
         </div>
       </div>
@@ -123,4 +102,4 @@ const FloatingImage = () => {
   );
 };
 
-export default FloatingImage;
+export default HowItWorks;

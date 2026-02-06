@@ -1,4 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/general-sans");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,8 +8,67 @@
 body {
   width: 100dvw;
   overflow-x: hidden;
-  background-color: #dfdff0;
-  font-family: "General Sans", sans-serif;
+  background-color: #0a0a0f;
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode overrides */
+html.light-mode body {
+  background-color: #f8fafc;
+}
+
+html.light-mode .bg-jecna-dark {
+  background-color: #f8fafc !important;
+}
+
+html.light-mode .bg-jecna-darker {
+  background-color: #f1f5f9 !important;
+}
+
+html.light-mode .bg-jecna-card {
+  background-color: #ffffff !important;
+}
+
+html.light-mode .bg-jecna-card\/50 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html.light-mode .bg-jecna-card\/30 {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+html.light-mode .border-jecna-border {
+  border-color: #e2e8f0 !important;
+}
+
+html.light-mode .text-white {
+  color: #0f172a !important;
+}
+
+html.light-mode .text-text-primary {
+  color: #0f172a !important;
+}
+
+html.light-mode .text-text-secondary {
+  color: #475569 !important;
+}
+
+html.light-mode .text-text-muted {
+  color: #94a3b8 !important;
+}
+
+html.light-mode .text-black {
+  color: #f8fafc !important;
+}
+
+html.light-mode .floating-nav {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-mode .three-body {
+  --uib-color: #3b82f6;
 }
 
 @layer base {
@@ -44,11 +104,11 @@ body {
   }
 
   .nav-hover-btn {
-    @apply relative ms-10 font-general text-xs uppercase text-blue-50 after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-white cursor-pointer;
+    @apply relative ms-10 font-poppins text-sm text-text-secondary after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-accent-blue after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer transition-colors;
   }
 
   .floating-nav {
-    @apply bg-black rounded-lg border;
+    @apply bg-jecna-dark/90 backdrop-blur-md rounded-lg border border-jecna-border;
   }
 
   .absolute-center {
@@ -73,7 +133,7 @@ body {
   }
 
   .about-subtext {
-    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
+    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-poppins text-lg md:max-w-[34rem];
   }
 
   .about-image {
@@ -81,11 +141,11 @@ body {
   }
 
   .animated-title {
-    @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+    @apply flex flex-col gap-1 text-5xl leading-[1] text-white sm:px-32 md:text-[5rem];
   }
 
   .animated-word {
-    @apply special-font font-zentry font-black opacity-0;
+    @apply font-poppins font-extrabold opacity-0;
     transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
     transform-origin: 50% 50% -150px !important;
     will-change: opacity, transform;
@@ -100,7 +160,7 @@ body {
   }
 
   .bento-title {
-    @apply uppercase md:text-6xl text-4xl font-black font-zentry;
+    @apply md:text-5xl text-3xl font-extrabold font-poppins;
   }
 
   .story-img-container {
@@ -172,7 +232,7 @@ body {
 .three-body {
   --uib-size: 35px;
   --uib-speed: 0.8s;
-  --uib-color: #5d3fd3;
+  --uib-color: #60a5fa;
   position: relative;
   display: inline-block;
   height: var(--uib-size);

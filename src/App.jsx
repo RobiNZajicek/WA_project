@@ -49,14 +49,24 @@ function App() {
             } 
           />
           
-          {/* Auth pages - no navbar */}
+          {/* Auth pages - with navbar */}
           <Route 
             path="/login" 
-            element={<LoginPage onSuccess={handleLoginSuccess} />} 
+            element={
+              <>
+                <NavBar isLoggedIn={isLoggedIn} user={user} />
+                <LoginPage onSuccess={handleLoginSuccess} />
+              </>
+            } 
           />
           <Route 
             path="/register" 
-            element={<RegisterPage onSuccess={handleLoginSuccess} />} 
+            element={
+              <>
+                <NavBar isLoggedIn={isLoggedIn} user={user} />
+                <RegisterPage onSuccess={handleLoginSuccess} />
+              </>
+            } 
           />
           
           {/* Dashboard - own layout */}

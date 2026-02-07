@@ -150,32 +150,11 @@ const RegisterPage = ({ onSuccess }) => {
         <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-accent-blue/10 rounded-full blur-[120px] animate-pulse" />
       </div>
 
-      {/* Back */}
-      <Link 
-        to="/"
-        className="absolute top-6 left-6 flex items-center gap-2 text-text-muted hover:text-white transition-colors font-poppins text-sm z-20"
-      >
-        <span>←</span>
-        <span>{language === "cs" ? "Zpět" : "Back"}</span>
-      </Link>
-
       {/* Card */}
-      <div className="register-card relative w-full max-w-md bg-jecna-card/90 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+      <div className="register-card relative w-full max-w-md bg-jecna-card/90 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl mt-20">
         {/* Decorative */}
         <div className="absolute top-4 left-4 text-accent-purple/20 font-mono text-xs">
           {"// new_player"}
-        </div>
-
-        {/* Logo */}
-        <div className="text-center mb-6">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-accent-purple/20 border border-accent-purple/30 flex items-center justify-center">
-              <span className="font-mono text-accent-purple font-bold">J</span>
-            </div>
-            <span className="font-poppins text-xl font-bold text-white">
-              Jecna<span className="text-accent-purple">Games</span>
-            </span>
-          </Link>
         </div>
 
         {/* Title */}
@@ -220,24 +199,24 @@ const RegisterPage = ({ onSuccess }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                 )}
+                {/* Class selector */}
                 <div className="register-field">
-                  <div className="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3 border border-white/10">
-                    <span className="text-text-muted">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                      </svg>
-                    </span>
-                    <select
-                      className="flex-1 bg-transparent text-white outline-none font-poppins appearance-none cursor-pointer"
-                      value={formData.class}
-                      onChange={(e) => setFormData({ ...formData, class: e.target.value })}
-                    >
-                      <option value="" className="bg-jecna-dark">{language === "cs" ? "Vyber třídu" : "Select class"}</option>
-                      {classes.map((c) => (
-                        <option key={c} value={c} className="bg-jecna-dark">{c}</option>
-                      ))}
-                    </select>
-                    <span className="text-text-muted">▼</span>
+                  <p className="text-text-muted text-xs font-mono mb-2 px-1">{language === "cs" ? "// vyber třídu" : "// select class"}</p>
+                  <div className="grid grid-cols-4 gap-2">
+                    {classes.map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, class: c })}
+                        className={`py-2.5 rounded-xl font-poppins font-medium text-sm transition-all ${
+                          formData.class === c
+                            ? "bg-gradient-to-r from-accent-purple to-accent-blue text-white"
+                            : "bg-white/5 text-text-muted hover:bg-white/10 hover:text-white border border-white/10"
+                        }`}
+                      >
+                        {c}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </>

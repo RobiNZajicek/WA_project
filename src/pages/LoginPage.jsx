@@ -86,32 +86,11 @@ const LoginPage = ({ onSuccess }) => {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-[120px] animate-pulse" />
       </div>
 
-      {/* Back to home */}
-      <Link 
-        to="/"
-        className="absolute top-6 left-6 flex items-center gap-2 text-text-muted hover:text-white transition-colors font-poppins text-sm z-20"
-      >
-        <span>←</span>
-        <span>{language === "cs" ? "Zpět" : "Back"}</span>
-      </Link>
-
       {/* Login Card */}
-      <div className="login-card relative w-full max-w-md bg-jecna-card/90 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+      <div className="login-card relative w-full max-w-md bg-jecna-card/90 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl mt-20">
         {/* Decorative */}
         <div className="absolute top-4 right-4 text-accent-blue/20 font-mono text-xs">
           {"<login />"}
-        </div>
-
-        {/* Logo */}
-        <div className="text-center mb-6">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-accent-blue/20 border border-accent-blue/30 flex items-center justify-center">
-              <span className="font-mono text-accent-blue font-bold">J</span>
-            </div>
-            <span className="font-poppins text-xl font-bold text-white">
-              Jecna<span className="text-accent-blue">Games</span>
-            </span>
-          </Link>
         </div>
 
         {/* Title */}
@@ -210,10 +189,9 @@ const LoginPage = ({ onSuccess }) => {
           {/* School login */}
           <button
             type="button"
-            className="w-full py-4 bg-white/5 border border-white/10 rounded-xl font-poppins font-medium text-white hover:bg-white/10 transition-all flex items-center justify-center gap-3"
+            className="w-full py-4 bg-white/5 border border-white/10 rounded-xl font-poppins font-medium text-white hover:bg-white/10 transition-all"
           >
-            <span className="text-xl">🏫</span>
-            <span>{language === "cs" ? "Přihlásit školním účtem" : "Sign in with school account"}</span>
+            {language === "cs" ? "Přihlásit školním účtem" : "Sign in with school account"}
           </button>
         </form>
 

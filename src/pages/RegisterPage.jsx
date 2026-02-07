@@ -175,7 +175,7 @@ const RegisterPage = ({ onSuccess }) => {
           <p className="text-accent-purple font-mono text-sm mb-2">
             // {language === "cs" ? "připoj se k nám" : "join the game"}
           </p>
-          <h1 className="font-zentry text-3xl font-black text-white flex justify-center gap-0.5 flex-wrap">
+          <h1 className="font-display text-3xl font-black text-white flex justify-center gap-0.5 flex-wrap">
             {title.split("").map((letter, i) => (
               <span key={i} className="register-title-letter inline-block">
                 {letter === "A" || letter === "I" ? <b>{letter}</b> : letter}

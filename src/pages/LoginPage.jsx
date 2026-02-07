@@ -98,7 +98,7 @@ const LoginPage = ({ onSuccess }) => {
           <p className="text-accent-blue font-mono text-sm mb-2">
             // {language === "cs" ? "vítej zpět" : "welcome back"}
           </p>
-          <h1 className="font-zentry text-4xl font-black text-white flex justify-center gap-1">
+          <h1 className="font-display text-4xl font-black text-white flex justify-center gap-1">
             {title.split("").map((letter, i) => (
               <span key={i} className="login-title-letter inline-block">
                 {letter === "Í" || letter === "I" ? <b>{letter}</b> : letter}

@@ -93,8 +93,8 @@ html.light-mode .three-body {
   }
 
   @font-face {
-    font-family: "zentry";
-    src: url("/fonts/zentry-regular.woff2") format("woff2");
+    font-family: "display";
+    src: url("/fonts/display-regular.woff2") format("woff2");
   }
 }
 
@@ -124,12 +124,12 @@ html.light-mode .three-body {
   }
 
   .special-font b {
-    font-family: "Zentry";
+    font-family: "display";
     font-feature-settings: "ss01" on;
   }
 
   .hero-heading {
-    @apply uppercase font-zentry font-black text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[12rem];
+    @apply uppercase font-display font-black text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[12rem];
   }
 
   .about-subtext {
@@ -178,29 +178,6 @@ html.light-mode .three-body {
     transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0) scale(1);
   }
 
-  .gallery-img-container {
-    @apply size-64 overflow-hidden bg-violet-300;
-  }
-
-  .gallery-img {
-    @apply size-full bg-cover;
-  }
-
-  .gallery-img-4 {
-    @apply sm:size-80 md:h-96 md:w-[25rem] rounded-lg;
-  }
-
-  .sword-man-clip-path {
-    clip-path: polygon(16% 0, 89% 15%, 75% 100%, 0 97%);
-  }
-
-  .contact-clip-path-1 {
-    clip-path: polygon(25% 0%, 74% 0, 69% 64%, 34% 73%);
-  }
-
-  .contact-clip-path-2 {
-    clip-path: polygon(29% 15%, 85% 30%, 50% 100%, 10% 64%);
-  }
 }
 
 .indicator-line {
@@ -227,8 +204,6 @@ html.light-mode .three-body {
   }
 }
 
-/* From Uiverse.io by G4b413l */
-/* https://uiverse.io/G4b413l/tidy-walrus-92 */
 .three-body {
   --uib-size: 35px;
   --uib-speed: 0.8s;

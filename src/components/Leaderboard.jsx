@@ -178,7 +178,7 @@ const Leaderboard = () => {
         {/* Header */}
         <div className="leaderboard-title text-center mb-12">
           <p className="font-mono text-sm text-accent-blue mb-3">// leaderboard</p>
-          <h2 className="font-zentry special-font text-4xl md:text-6xl font-black text-white uppercase">
+          <h2 className="font-display special-font text-4xl md:text-6xl font-black text-white uppercase">
             {language === "cs" ? (
               <>
                 KD<b>O</b> VE<b>D</b>E?

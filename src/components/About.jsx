@@ -35,7 +35,7 @@ const About = () => {
         </p>
 
         {/* Big title with special font */}
-        <h2 className="font-zentry special-font text-5xl md:text-7xl lg:text-8xl font-black text-white text-center mt-5 leading-tight">
+        <h2 className="font-display special-font text-5xl md:text-7xl lg:text-8xl font-black text-white text-center mt-5 leading-tight">
           {language === "cs" ? (
             <>V<b>Y</b>BER HR<b>U</b></>
           ) : (
@@ -62,7 +62,7 @@ const About = () => {
             
             {/* PLAY text */}
             <div className="relative z-10 text-center">
-              <h2 className="font-zentry special-font text-[8vw] md:text-[10vw] font-black text-white leading-none tracking-tight">
+              <h2 className="font-display special-font text-[8vw] md:text-[10vw] font-black text-white leading-none tracking-tight">
                 PL<b>A</b>Y
               </h2>
             </div>

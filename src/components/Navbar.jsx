@@ -17,7 +17,7 @@ const NavBar = ({ isLoggedIn, user }) => {
 
   const navItems = [
     { label: t("games"), href: "#games" },
-    { label: t("about"), href: "#about" },
+    { label: t("leaderboard"), href: "#leaderboard" },
     { label: t("howItWorks"), href: "#how-it-works" },
   ];
 
@@ -52,14 +52,11 @@ const NavBar = ({ isLoggedIn, user }) => {
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
           {/* Logo */}
-          <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-blue/20 border border-accent-blue/30">
-              <span className="font-mono text-accent-blue text-lg font-bold">J</span>
-            </div>
-            <span className="hidden sm:block font-poppins text-xl font-bold text-white">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span className="font-poppins text-xl font-bold text-white">
               Jecna<span className="text-accent-blue">Games</span>
             </span>
-          </div>
+          </Link>
 
           {/* Navigation Links */}
           <div className="flex h-full items-center gap-2">

@@ -8,6 +8,7 @@ export const translations = {
     games: "Hry",
     about: "O nás",
     howItWorks: "Jak to funguje",
+    leaderboard: "Žebříček",
     playNow: "Hrát",
     
     // Hero
@@ -74,6 +75,7 @@ export const translations = {
     games: "Games",
     about: "About",
     howItWorks: "How It Works",
+    leaderboard: "Leaderboard",
     playNow: "Play",
     
     // Hero

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -20,7 +20,20 @@ const RegisterPage = ({ onSuccess }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const classes = ["1.A", "1.B", "1.C", "2.A", "2.B", "2.C", "3.A", "3.B", "3.C", "4.A", "4.B", "4.C"];
+  const obory = ["A", "B", "C"];
+  const rocniky = ["1", "2", "3", "4"];
+  const skupiny = ["A", "B", "C"];
+  
+  const [selectedObor, setSelectedObor] = useState("");
+  const [selectedRocnik, setSelectedRocnik] = useState("");
+  const [selectedSkupina, setSelectedSkupina] = useState("");
+  
+  // Složit třídu když jsou vybrané všechny části
+  useEffect(() => {
+    if (selectedObor && selectedRocnik && selectedSkupina) {
+      setFormData(prev => ({ ...prev, class: `${selectedObor}${selectedRocnik}${selectedSkupina}` }));
+    }
+  }, [selectedObor, selectedRocnik, selectedSkupina]);
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -200,24 +213,79 @@ const RegisterPage = ({ onSuccess }) => {
                   </svg>
                 )}
                 {/* Class selector */}
-                <div className="register-field">
-                  <p className="text-text-muted text-xs font-mono mb-2 px-1">{language === "cs" ? "// vyber třídu" : "// select class"}</p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {classes.map((c) => (
-                      <button
-                        key={c}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, class: c })}
-                        className={`py-2.5 rounded-xl font-poppins font-medium text-sm transition-all ${
-                          formData.class === c
-                            ? "bg-gradient-to-r from-accent-purple to-accent-blue text-white"
-                            : "bg-white/5 text-text-muted hover:bg-white/10 hover:text-white border border-white/10"
-                        }`}
-                      >
-                        {c}
-                      </button>
-                    ))}
+                <div className="register-field space-y-3">
+                  <p className="text-text-muted text-xs font-mono px-1">{language === "cs" ? "// vyber třídu" : "// select class"}</p>
+                  
+                  {/* Obor */}
+                  <div>
+                    <p className="text-text-muted text-xs mb-1.5 px-1">{language === "cs" ? "Obor" : "Field"}</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {obory.map((o) => (
+                        <button
+                          key={o}
+                          type="button"
+                          onClick={() => setSelectedObor(o)}
+                          className={`py-2.5 rounded-xl font-poppins font-bold text-sm transition-all ${
+                            selectedObor === o
+                              ? "bg-accent-purple text-white"
+                              : "bg-white/5 text-text-muted hover:bg-white/10 hover:text-white border border-white/10"
+                          }`}
+                        >
+                          {o}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Ročník */}
+                  <div>
+                    <p className="text-text-muted text-xs mb-1.5 px-1">{language === "cs" ? "Ročník" : "Year"}</p>
+                    <div className="grid grid-cols-4 gap-2">
+                      {rocniky.map((r) => (
+                        <button
+                          key={r}
+                          type="button"
+                          onClick={() => setSelectedRocnik(r)}
+                          className={`py-2.5 rounded-xl font-poppins font-bold text-sm transition-all ${
+                            selectedRocnik === r
+                              ? "bg-accent-blue text-white"
+                              : "bg-white/5 text-text-muted hover:bg-white/10 hover:text-white border border-white/10"
+                          }`}
+                        >
+                          {r}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Skupina */}
+                  <div>
+                    <p className="text-text-muted text-xs mb-1.5 px-1">{language === "cs" ? "Skupina" : "Group"}</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {skupiny.map((s) => (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => setSelectedSkupina(s)}
+                          className={`py-2.5 rounded-xl font-poppins font-bold text-sm transition-all ${
+                            selectedSkupina === s
+                              ? "bg-accent-purple text-white"
+                              : "bg-white/5 text-text-muted hover:bg-white/10 hover:text-white border border-white/10"
+                          }`}
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Výsledná třída */}
+                  {formData.class && (
+                    <div className="text-center py-2">
+                      <span className="text-text-muted text-xs font-mono">{language === "cs" ? "Tvoje třída: " : "Your class: "}</span>
+                      <span className="text-white font-bold font-mono">{formData.class}</span>
+                    </div>
+                  )}
                 </div>
               </>
             )}

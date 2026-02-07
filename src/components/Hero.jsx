@@ -151,17 +151,21 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="hero-cta mt-8 flex flex-wrap gap-4">
-              <Button
-                id="play-today"
-                title={t("playToday")}
-                leftIcon={<TiLocationArrow />}
-                containerClass="!bg-accent-blue !text-white flex-center gap-2 !px-8 !py-4"
-              />
-              <Button
-                id="view-games"
-                title={t("viewGames")}
-                containerClass="!bg-transparent border border-text-muted !text-white hover:border-accent-blue transition-colors"
-              />
+              <a href="#games">
+                <Button
+                  id="play-today"
+                  title={t("playToday")}
+                  leftIcon={<TiLocationArrow />}
+                  containerClass="!bg-accent-blue !text-white flex-center gap-2 !px-8 !py-4"
+                />
+              </a>
+              <a href="#games">
+                <Button
+                  id="view-games"
+                  title={t("viewGames")}
+                  containerClass="!bg-transparent border border-text-muted !text-white hover:border-accent-blue transition-colors"
+                />
+              </a>
             </div>
 
             {/* Game preview cards */}

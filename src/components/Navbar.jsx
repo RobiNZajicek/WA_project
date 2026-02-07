@@ -1,12 +1,13 @@
 import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { TiLocationArrow } from "react-icons/ti";
 import { useApp } from "../context/AppContext";
 
 import Button from "./Button";
 
-const NavBar = () => {
+const NavBar = ({ isLoggedIn, user }) => {
   const navContainerRef = useRef(null);
   const { language, toggleLanguage, isDark, toggleTheme, t } = useApp();
 
@@ -100,12 +101,35 @@ const NavBar = () => {
               {language.toUpperCase()}
             </button>
 
-            <Button
-              id="play-now"
-              title={t("playNow")}
-              rightIcon={<TiLocationArrow />}
-              containerClass="ml-4 !bg-accent-blue !text-white flex items-center justify-center gap-1"
-            />
+            {isLoggedIn ? (
+              <Link
+                to="/dashboard"
+                className="ml-4 flex items-center gap-2 px-4 py-2 rounded-full bg-accent-blue/20 border border-accent-blue/30 hover:bg-accent-blue/30 transition-all"
+              >
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center text-sm">
+                  {user?.username?.[0]?.toUpperCase() || "?"}
+                </div>
+                <span className="hidden sm:block text-white font-poppins text-sm font-medium">
+                  {user?.username || "Player"}
+                </span>
+              </Link>
+            ) : (
+              <div className="flex items-center gap-2 ml-4">
+                <Link 
+                  to="/login"
+                  className="px-4 py-2 text-text-secondary hover:text-white font-poppins text-sm transition-colors"
+                >
+                  {language === "cs" ? "Přihlásit" : "Login"}
+                </Link>
+                <Link to="/register">
+                  <Button
+                    id="register-btn"
+                    title={language === "cs" ? "Registrace" : "Sign Up"}
+                    containerClass="!bg-accent-blue !text-white"
+                  />
+                </Link>
+              </div>
+            )}
           </div>
         </nav>
       </header>

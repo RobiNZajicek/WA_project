@@ -29,12 +29,32 @@ function loadJSON($file) {
     if (!file_exists($path)) {
         return [];
     }
-    return json_decode(file_get_contents($path), true) ?? [];
+    
+    $fp = fopen($path, 'r');
+    if (!$fp) return [];
+    
+    flock($fp, LOCK_SH); // Shared lock for reading
+    $content = file_get_contents($path);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    
+    return json_decode($content, true) ?? [];
 }
 
 function saveJSON($file, $data) {
     $path = DATA_DIR . $file;
-    file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT));
+    
+    $fp = fopen($path, 'c+'); // Create if not exists, read/write
+    if (!$fp) return false;
+    
+    flock($fp, LOCK_EX); // Exclusive lock for writing
+    ftruncate($fp, 0);
+    fwrite($fp, json_encode($data, JSON_PRETTY_PRINT));
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    
+    return true;
 }
 
 function respond($data, $code = 200) {
